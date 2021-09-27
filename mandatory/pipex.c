@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:49 by dsohn             #+#    #+#             */
-/*   Updated: 2021/09/27 10:22:05 by dsohn            ###   ########.fr       */
+/*   Updated: 2021/09/27 10:28:54 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	runcmd(t_cmd *cmds, int cnt, char **env)
 	{
 	}
 }
+
 int	main(int argc, char **argv, char **env)
 {
 	int		fdin;
