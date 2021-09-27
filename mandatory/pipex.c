@@ -6,17 +6,19 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:49 by dsohn             #+#    #+#             */
-/*   Updated: 2021/09/27 07:35:44 by dsohn            ###   ########.fr       */
+/*   Updated: 2021/09/27 10:05:09 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
 
-void	closecmdfd(t_cmd *cmd)
+void	closecmdfd(t_cmd *cmd, int cnt, int i)
 {
 	close(cmd->fdin);
 	close(cmd->fdout);
+	if (i < cnt - 1)
+		close((cmd + 1)->fdin);
 	cmd->fdin = -1;
 	cmd->fdout = -1;
 }
@@ -37,13 +39,16 @@ void	runcmd(t_cmd *cmds, int cnt, char **env)
 		{
 			dup2(cmds[i].fdin, 0);
 			dup2(cmds[i].fdout, 1);
+			closecmdfd(&cmds[i], cnt, i);
 			ret = execve(findpath(cmds[i].argv[0], env), cmds[i].argv, env);
 			if (ret < 0)
 				write(2, "execve error!\n", 14);
 			exit(1);
 		}
-		waitpid(pid, &ret, WNOHANG);
-		closecmdfd(&cmds[i]);
+		closecmdfd(&cmds[i], cnt, cnt);
+	}
+	while (wait(&ret) != -1)
+	{
 	}
 }
 
