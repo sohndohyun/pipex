@@ -6,7 +6,7 @@
 /*   By: dsohn <dsohn@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 19:43:49 by dsohn             #+#    #+#             */
-/*   Updated: 2021/09/27 10:02:33 by dsohn            ###   ########.fr       */
+/*   Updated: 2021/09/27 10:22:11 by dsohn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	runcmd(t_cmd *cmds, int cnt, char **env)
 int	openout(char *filename, int hd)
 {
 	if (hd)
-		return (open(filename, O_WRONLY | O_APPEND, 0666));
+		return (open(filename, O_WRONLY | O_APPEND | O_CREAT, 0666));
 	else
 		return (open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0666));
 }
